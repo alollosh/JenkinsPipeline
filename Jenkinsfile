@@ -2,23 +2,13 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_USER = 'alollosh'
-        DOCKER_HUB_REPO = 'alollosh/mywebapp'
-        IMAGE_NAME = 'mywebapp'
-        IMAGE_TAG = 'latest'
+
+        IMAGE_NAME = 'alollosh/mywebapp'
+        IMAGE_TAG = '${IMAGE_NAME}:${env.GIT_COMMIT}'
     }
 
     stages {
         
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh "docker build -t $DOCKER_HUB_USER/$IMAGE_NAME:$IMAGE_TAG ."
-                }
-            }
-        }
-
         stage('Login to Docker Hub') {
             steps {
                 script {
@@ -28,6 +18,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t $DOCKER_HUB_USER/$IMAGE_NAME:$IMAGE_TAG ."
+                }
+            }
+        }
+
+        
 
         stage('Push to Docker Hub') {
             steps {
