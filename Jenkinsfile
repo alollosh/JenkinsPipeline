@@ -4,7 +4,7 @@ pipeline {
     environment {
 
         IMAGE_NAME = 'alollosh/mywebapp'
-        IMAGE_TAG = '${IMAGE_NAME}:${env.GIT_COMMIT}'
+        IMAGE_TAG = '${IMAGE_NAME}:latest'
     }
 
     stages {
