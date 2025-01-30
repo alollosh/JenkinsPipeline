@@ -22,7 +22,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t $DOCKER_HUB_USER/$IMAGE_NAME:$IMAGE_TAG ."
+                    sh "docker build -t new ."
                 }
             }
         }
@@ -37,11 +37,7 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
-            steps {
-                sh "docker rmi $DOCKER_HUB_USER/$IMAGE_NAME:$IMAGE_TAG || true"
-            }
-        }
+        
     }
 
     post {
